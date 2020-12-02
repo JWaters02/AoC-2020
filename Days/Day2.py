@@ -20,18 +20,11 @@ for i in range(len(passwordList)):
     letter = letter.replace(":", "") 
     password = currentLine[2]
 
-    print(currentLine)
-    print("firstpos",str(firstPos))
-    print("secondpos",str(secondPos))
-    print(letter)
-    print(password)
-
     # if letter appears in either firstpos or second pos
     if password[firstPos - 1] == letter or password[secondPos - 1] == letter:
         # if not letter appears in both firstpos and second pos (cancels out if both are there)
         if not (password[firstPos - 1] == letter and password[secondPos - 1] == letter):
             numValidPasswords += 1
-            print("valid")
 
 end = time.time()
 print(numValidPasswords)
