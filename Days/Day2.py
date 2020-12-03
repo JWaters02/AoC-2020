@@ -5,6 +5,8 @@ for i in range(1000):
     passwordList.append(input())
 
 start = time.time()
+
+# Execution time: 0.003s
 currentLine = []
 firstPos = 0
 secondPos = 0
