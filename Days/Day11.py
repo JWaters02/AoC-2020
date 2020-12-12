@@ -15,6 +15,13 @@ def lifeRound(lines):
             else:
                 replaceRow += lines[row][column]
         newGrid.append(replaceRow)
+
+    for row in range(len(newGrid)):
+        newRow = ''
+        for column in range(len(newGrid[0])):
+            newRow += newGrid[row][column]
+    print(newGrid)
+    time.sleep(0.2)
     return newGrid
 
 def checkAdjacent(row, column, lines):
@@ -37,8 +44,11 @@ def main():
     # Execution time: 11.5s
     lines = [line.rstrip('\n') for line in fileinput.input("Day11.txt")]
     currentLine = lines
+    roundCounter = 0
     while True:
+        roundCounter += 1
         after = lifeRound(currentLine)
+        print(roundCounter)
         if after == currentLine:
             print(''.join(currentLine).count('#'))
             break
