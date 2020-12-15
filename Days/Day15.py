@@ -1,4 +1,3 @@
-import fileinput
 import time
         
 def main():
