@@ -1,31 +1,33 @@
 import fileinput
 import time
+from collections import defaultdict
 
-def parseRules(rulesLines, i):
+def parseRules(rulesLines):
     ret = {}
-    currentRule, ranges = i.split(": ")
-    rule1, rule2 = [[int(i) for j in rule.split("-")] for rule in ranges.split(" or ")]
-    ret[currentRule] = (rule1, rule2)
+    for i in rulesLines:
+        currentRule, ranges = i.split(": ")
+        rule1, rule2 = [[int(j) for j in rule.split("-")] for rule in ranges.split(" or ")]
+        ret[currentRule] = (rule1, rule2)
     return ret
 
-def parseYourTickets(yourTicketLine, i):
+def parseYourTickets(yourTicketLine):
+    ret = [int(j) for j in yourTicketLine.split(",")]
+    return ret
+
+def parseNearbyTickets(nearbyTicketsLines):
     ret = []
-    ret = [int(j) for j in i.split(",")]
+    for i in nearbyTicketsLines:
+        ret.append([int(j) for j in i.split(",")])
     return ret
 
-def parseNearbyTickets(nearbyTicketsLines, i):
-    ret = []
-    ret.append([int(j) for j in i.split(",")])
-    return ret
-
-def getErrors(rules, nearbyTickets):
+def getValidTickets(rules, nearbyTickets):
     validTickets = []
     errors = 0
     for ticket in nearbyTickets:
         currentTicketValid = True
         for currentValue in ticket:
             valid = False
-            for rule, ((lowRange1, highRange1), (lowRange2, highRange2)) in rules.items():
+            for i, ((lowRange1, highRange1), (lowRange2, highRange2)) in rules.items():
                 if (lowRange1 <= currentValue <= highRange1) or (lowRange2 <= currentValue <= highRange2):
                     valid = True
             if not valid:
@@ -33,31 +35,57 @@ def getErrors(rules, nearbyTickets):
                 currentTicketValid = False
         if currentTicketValid:
             validTickets.append(ticket)
-    return errors
+    return validTickets
+    
+def getValidPositions(rules, yourTickets, nearbyTickets):
+    validTickets = getValidTickets(rules, nearbyTickets)
+    validPositions = defaultdict(lambda: [])
+    for field in range(len(yourTickets)):
+        for rule, ((lowRange1, highRange1), (lowRange2, highRange2)) in rules.items():
+            valid = True
+            for ticket in validTickets:
+                if not((lowRange1 <= ticket[field] <= highRange1) or (lowRange2 <= ticket[field] <= highRange2)):
+                    valid = False
+            if valid:
+                validPositions[rule].append(field)
+    return validPositions
+
+def getProductOfValidTickets(validTicketPositions, yourTickets):
+    rules = {}
+    while len(rules.keys()) < len(yourTickets):
+        for rule, valid in validTicketPositions.items():
+            positions = valid[:]
+            for i in rules.values():
+                try:
+                    positions.remove(i)
+                except ValueError:
+                    pass
+            if len(positions) <= 1 and rule not in rules.keys():
+                rules[rule] = positions[0]
+    product = 1
+    for key, value in rules.items():
+        if key.startswith("departure"):
+            product *= yourTickets[value]
+    return product
 
 def main():
     start = time.time()
     
-    # Execution time: 0
+    # Execution time: 0.6s
     lines = [line.rstrip('\n') for line in fileinput.input("Day16Input.txt")]
     rulesLines = []
     nearbyTicketsLines = []
-    lineNum = 0
-    for i in lines:
-        if i == '':
-            lineNum += 1
-        elif lineNum == 0:
-            rulesSanitised = parseRules(rulesLines, i)
-        elif lineNum == 1:
-            lineNum += 1
-        elif lineNum == 2:
-            yourTickets = parseYourTickets(lines[23], i)
-        elif lineNum == 3:
-            lineNum += 1
-        elif lineNum == 4:
-            nearbyTickets = parseNearbyTickets(nearbyTicketsLines, i)
+    for i in range(0, 20):
+        rulesLines.append(lines[i])
+    for i in range(26, 266):
+        nearbyTicketsLines.append(lines[i])
+
+    rulesSanitised = parseRules(rulesLines)
+    yourTickets = parseYourTickets(lines[22])
+    nearbyTickets = parseNearbyTickets(nearbyTicketsLines)
     
-    print(getErrors(rulesSanitised, nearbyTickets))
+    validTicketPositions = getValidPositions(rulesSanitised, yourTickets, nearbyTickets)
+    print(getProductOfValidTickets(validTicketPositions, yourTickets))
 
     end = time.time()
     print(f"Executiont time: {end - start}")
