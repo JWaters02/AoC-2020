@@ -48,7 +48,7 @@ def finalProduct(values):
 def main():
     start = time.time()
 
-    # Execution time: 
+    # Execution time: 0.06s
     lines = [line.rstrip('\n') for line in fileinput.input("Day18Input.txt")]
     # Nicked this regex from online LOL
     lines = [re.findall('\(|\d+|\*|\+|\)', line) for line in lines]
