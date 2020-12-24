@@ -3,13 +3,13 @@ import time
 from collections import defaultdict
 
 def takeSteps(position, step):
-    xDistance, yDistance, zDistance = position
-    if step == 'ne': return (xDistance + 1, yDistance, zDistance - 1)
-    if step == 'e': return (xDistance + 1, yDistance - 1, zDistance)
-    if step == 'se': return (xDistance, yDistance - 1, zDistance + 1)
-    if step == 'sw': return (xDistance - 1, yDistance, zDistance + 1)
-    if step == 'w': return (xDistance - 1, yDistance + 1, zDistance)
-    if step == 'nw': return (xDistance, yDistance + 1, zDistance - 1)
+    x, y, z = position
+    if step == 'ne': return (x + 1, y, z - 1)
+    if step == 'e': return (x + 1, y - 1, z)
+    if step == 'se': return (x, y - 1, z + 1)
+    if step == 'sw': return (x - 1, y, z + 1)
+    if step == 'w': return (x - 1, y + 1, z)
+    if step == 'nw': return (x, y + 1, z - 1)
 
 def flipTiles(lines):
     grid = defaultdict(bool)
