@@ -37,23 +37,23 @@ def generateNewCasesFromNewRules(ruleNumber, ruleStrings):
 def handleLoopingRules(ruleStrings, caseStrings):
     rule42 = generateNewCasesFromNewRules(42, ruleStrings)
     rule31 = generateNewCasesFromNewRules(31, ruleStrings)
-    c = 0
+    count = 0
     for case in caseStrings:
-        if len(case)%8 != 0:
+        if len(case) % 8 != 0:
             continue
-        bc = [case[i:i+8] for i in range(0,len(case),8)]
-        dx = 0
-        c42 = 0
-        while dx < len(bc) and bc[dx] in rule42:
-            dx += 1
-            c42 += 1
-        c31 = 0
-        while dx < len(bc) and bc[dx] in rule31:
-            dx += 1
-            c31 += 1
-        if dx == len(bc) and c31 < c42 and c31 > 0:
-            c += 1
-    return c
+        bc = [case[i:i + 8] for i in range(0, len(case), 8)]
+        difference = 0
+        case42 = 0
+        while difference < len(bc) and bc[difference] in rule42:
+            difference += 1
+            case42 += 1
+        case31 = 0
+        while difference < len(bc) and bc[difference] in rule31:
+            difference += 1
+            case31 += 1
+        if difference == len(bc) and case31 < case42 and case31 > 0:
+            count += 1
+    return count
 
 def main():
     start = time.time()
