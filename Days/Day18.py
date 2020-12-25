@@ -5,7 +5,6 @@ import re
 def parse(tokens):
     levelOfParenthesis = 0
     ret = []
-    
     for token in tokens:
         if token == '(':
             levelOfParenthesis += 1
@@ -50,7 +49,6 @@ def main():
 
     # Execution time: 0.06s
     lines = [line.rstrip('\n') for line in fileinput.input("Day18Input.txt")]
-    # Nicked this regex from online LOL
     lines = [re.findall('\(|\d+|\*|\+|\)', line) for line in lines]
     for line in lines:
         result = [int(parse(line))]
