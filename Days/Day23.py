@@ -61,7 +61,7 @@ def game(lines):
 def main():
     start = time.time()
 
-    # Execution time:
+    # Execution time: 51.9s
     with open("Day23Input.txt") as line:
         lines = [int(i) for i in line.read().strip()]
     print(game(lines))
