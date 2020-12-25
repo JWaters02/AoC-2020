@@ -50,8 +50,9 @@ def main():
     # Execution time: 0.06s
     lines = [line.rstrip('\n') for line in fileinput.input("Day18Input.txt")]
     lines = [re.findall('\(|\d+|\*|\+|\)', line) for line in lines]
+    result = []
     for line in lines:
-        result = [int(parse(line))]
+        result.append(int(parse(line)))
     print(sum(result))
 
     end = time.time()
