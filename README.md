@@ -2,10 +2,10 @@
  
 Repository for my solutions to Advent of Code 2020. I have two regrets this year - on Day 13 I copy and pasted the Chinese Remainder Theorem code into my program. I should have been able to code it myself given its rules, yet I decided to possibly cheat (depends on what you count as cheating). The second regret is that I replaced or built upon my part 1 solutions with my part 2 solutions meaning that I don't have a record of them. 
 
-I calculated the average execution time of each part 2 solution (given my own inputs) alongside my time completion of puzzles and my global rank for them:
+I calculated the average execution time of each part 2 solution (given my own inputs) alongside my time completion of puzzles (from 5am UTC start time) and my global rank for them:
 
-Day | Avg Execution Time (s) | Time to Complete Puzzle (from 5am start time) | Global Rank
---- | ---------------------- | --------------------------------------------- | -----------
+Day | Avg Execution Time (s) | Time to Complete Puzzle | Global Rank
+--- | ---------------------- | ----------------------- | -----------
 Day 1 | 4.32 | 08:56:38(\*) | 29610
 Day 2 | 0.003 | 00:50:37 | 6444
 Day 3 | 0.001 | 00:19:21 | 2943
@@ -33,4 +33,5 @@ Day 24 | 15.1 | 01:33:19 | 2519
 Day 25 | 38.3 | 04:28:00(\*\*) | 4681
 
 \*I forgot about AoC on Day 1 and woke up 8 hours late.
+
 \*\*I woke up 1 hour 30 minutes late. Then, in order to complete Day 25, you have to have finished all previous puzzles first. On Day 25, I had to finish Day 20 Part 2.
